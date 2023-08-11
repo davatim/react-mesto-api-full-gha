@@ -3,7 +3,18 @@ class Api {
     this._baseUrl = config.baseUrl;
     this._headers = config.headers;
   }
+//   _getJson(res) {
+//     if (res.ok) {
+//         return res.json();
+//     }
+//     return Promise.reject(`Ошибка: ${res.status}`)
+// }
 
+// _request(url, options) {
+    // return fetch(`${this._baseUrl}${url}`, options).then(this._getJson)
+  //   return fetch(`${this._baseUrl}${url}`, options)
+
+  // }
   _getResponseData(res) {
     if (!res.ok) {
       return Promise.reject(`Ошибка: ${res.status}`);
@@ -62,7 +73,26 @@ class Api {
       }),
     }).then((res) => this._getResponseData(res));
   }
-
+//   putLike(id) {
+//     return this._request(`/cards/${id}/likes`, {
+//         method: 'PUT',
+//         headers: this._headers,
+//     })
+// }
+// deleteLike(id) {
+//   return this._request(`/cards/${id}/likes`, {
+//       method: 'DELETE',
+//       headers: this._headers,
+//   })
+// }
+// changeLikeCardStatus(id, isLiked) {
+//   if(isLiked){
+//       return this.putLike(id)
+//   } else {
+//       return this.deleteLike(id)
+//   }
+// }
+// }
   changeLikeCardStatus(id, isLiked) {
     return isLiked
       ? fetch(`${this._baseUrl}/cards/${id}/likes`, {

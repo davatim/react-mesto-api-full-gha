@@ -14,6 +14,7 @@ class Api {
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, {
       method: "GET",
+      credentials: 'include',
       headers: this._headers,
     }).then((res) => this._getResponseData(res));
   }
@@ -21,6 +22,8 @@ class Api {
   getUserInfo() {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "GET",
+      credentials: 'include',
+
       headers: this._headers,
     }).then((res) => this._getResponseData(res));
   }
@@ -28,6 +31,8 @@ class Api {
   addNewCard(data) {
     return fetch(`${this._baseUrl}/cards`, {
       method: "POST",
+      credentials: 'include',
+
       headers: this._headers,
       body: JSON.stringify(data),
     }).then((res) => this._getResponseData(res));
@@ -36,6 +41,8 @@ class Api {
   setUserInfo(userInfo) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
+      credentials: 'include',
+
       headers: this._headers,
       body: JSON.stringify({
         name: userInfo.name,
@@ -47,6 +54,8 @@ class Api {
   updateAvatar(data) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: "PATCH",
+      credentials: 'include',
+
       headers: this._headers,
       body: JSON.stringify({
         avatar: data.avatar,
@@ -58,10 +67,13 @@ class Api {
     return isLiked
       ? fetch(`${this._baseUrl}/cards/${id}/likes`, {
           method: "PUT",
+          credentials: 'include',
+
           headers: this._headers,
         }).then((res) => this._getResponseData(res))
       : fetch(`${this._baseUrl}/cards/${id}/likes`, {
           method: "DELETE",
+          credentials: 'include',
           headers: this._headers,
         }).then((res) => this._getResponseData(res));
   }
@@ -69,15 +81,16 @@ class Api {
   removeCard(id) {
     return fetch(`${this._baseUrl}/cards/${id}`, {
       method: "DELETE",
+      credentials: 'include',
+
       headers: this._headers,
     }).then((res) => this._getResponseData(res));
   }
 }
 
 const api = new Api({
-  baseUrl: "https://mesto.nomoreparties.co/v1/cohort-65",
+  baseUrl: "http://localhost:4000",
   headers: {
-    authorization: "5e8f85ff-edbe-4dec-8194-ce5c131552aa",
     "content-type": "application/json",
   },
 });

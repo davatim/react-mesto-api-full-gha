@@ -4,10 +4,13 @@ const helmet = require('helmet');
 const { errors } = require('celebrate');
 const router = require('./routes/index');
 const error500 = require('./middlewares/error500');
+const cors = require('cors')
+const cookies = require('cookie-parser');
 
 const ERROR_404_NOTFOUND = 404;
 
-const { PORT = 3000 } = process.env;
+const { PORT = 4000 } = process.env;
+
 const app = express();
 
 mongoose.connect('mongodb://127.0.0.1:27017/mestodb')
@@ -17,9 +20,12 @@ mongoose.connect('mongodb://127.0.0.1:27017/mestodb')
   });
 
 app.use(express.json());
+app.use(cookies())
 
 app.use(helmet());
-
+app.use(cors({ origin: "http://localhost:3000",
+credentials: true,
+}));
 app.use(router);
 
 app.use('/', (_req, res) => {
@@ -31,5 +37,5 @@ app.use(errors());
 app.use(error500);
 
 app.listen(PORT, () => {
-  console.log('Server started on port 3000');
+  console.log('Server started on port 4000');
 });

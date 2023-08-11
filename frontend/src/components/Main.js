@@ -36,9 +36,9 @@ function Main(props) {
       </section>
 
       <section className="elements">
-        {props.cards.map((card) => (
+        {props.cards.map((card, index) => (
           <Card
-            key={card._id}
+            key={index}
             card={card}
             onCardClick={props.onCardClick}
             onCardLike={props.onCardLike}

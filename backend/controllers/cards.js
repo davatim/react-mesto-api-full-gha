@@ -68,7 +68,7 @@ module.exports.likeCard = (req, res, next) => {
       if (!card) {
         return next(new ERROR_404_NOTFOUND('Карточка не была найдена'));
       }
-      return res.status(INFO_200_SEC_SEND).send({ message: 'Карточка нравится' });
+      return res.status(INFO_200_SEC_SEND).send({ data: card });
     })
     .catch((err) => {
       if (err.name === 'CastError') {
@@ -89,7 +89,7 @@ module.exports.dislikeCard = (req, res, next) => {
       if (!card) {
         return next(new ERROR_404_NOTFOUND('Карточка не была найдена'));
       }
-      return res.status(INFO_200_SEC_SEND).send({ message: 'Карточка не нравится' });
+      return res.status(INFO_200_SEC_SEND).send({ data: card });
     })
     .catch((err) => {
       if (err.name === 'CastError') {

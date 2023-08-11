@@ -110,6 +110,11 @@ module.exports.login = (req, res, next) => {
             return next(new ANAUTHORUZED_REQUEST_401('Неправильная почта или пароль'));
           }
           const token = jwt.sign({ _id: user._id }, 'super-secret-kei', { expiresIn: '7d' });
+          res.cookie('jwt', token, {
+            maxAge: 604800,
+            httpOnly: true,
+            sameSite: true,
+          })
           return res.status(INFO_200_SEC_SEND).send({ token });
         });
     })

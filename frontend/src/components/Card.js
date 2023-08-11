@@ -8,9 +8,9 @@ function Card(props) {
 
   const userInfoData = useContext(CurrentUserContext);
 
-  const isOwn = props.card.owner._id === userInfoData._id;
+  const isOwn = props.card.owner === userInfoData._id;
 
-  const isLiked = props.card.likes.some((i) => i._id === userInfoData._id);
+  const isLiked = props.card.likes?.some((i) => i === userInfoData._id);
 
   const cardLikeButtonClassName = `element__like ${
     isLiked && "element__like element__like_active"
@@ -40,7 +40,7 @@ function Card(props) {
             type="button"
             onClick={handleLikeClick}
           ></button>
-          <p className="element__like-calc">{props.card.likes.length}</p>
+          <p className="element__like-calc">{props.card.likes?.length}</p>
 
           {isOwn && (
             <button

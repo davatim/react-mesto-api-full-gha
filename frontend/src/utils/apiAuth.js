@@ -1,8 +1,9 @@
-const BASE_URL = "https://auth.nomoreparties.co";
+const BASE_URL = "http://localhost:4000";
 
 export function register(password, email) {
   return fetch(`${BASE_URL}/signup`, {
     method: "POST",
+    credentials: 'include',
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ password: password, email: email }),
   }).then(getResponseData);
@@ -11,6 +12,7 @@ export function register(password, email) {
 export function login(password, email) {
   return fetch(`${BASE_URL}/signin`, {
     method: "POST",
+    credentials: 'include',
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ password: password, email: email }),
   }).then(getResponseData);
@@ -19,6 +21,7 @@ export function login(password, email) {
 export function loginWithToken() {
   return fetch(`${BASE_URL}/users/me`, {
     method: "GET",
+    credentials: 'include',
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${localStorage.getItem("jwt")}`,

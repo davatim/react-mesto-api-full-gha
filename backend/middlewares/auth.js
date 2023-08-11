@@ -1,19 +1,11 @@
 const jwt = require('jsonwebtoken');
 const {
   ANAUTHORUZED_REQUEST_401,
-} = require('../utils/errors/errors');// const ANAUTHORUZED_REQUEST_401 = 401;
+} = require('../utils/errors/errors');
 
-module.exports.auth = (req, res, next) => {
-  const { authorization } = req.headers;
-
-  if (!authorization || !authorization.startsWith('Bearer ')) {
-    return next(new ANAUTHORUZED_REQUEST_401('Сначала авторизируйтесь'));
-  }
-  //   return res
-  //     .status(ANAUTHORUZED_REQUEST_401)
-  //     .send({ message: 'Сначала авторизируйтесь' });
-  // }
-  const token = authorization.replace('Bearer ', '');
+module.exports.auth = (req, _res, next) => {
+  const token  = req?.cookies?.jwt;
+  console.log(token)
   let payload;
 
   try {
@@ -21,10 +13,7 @@ module.exports.auth = (req, res, next) => {
   } catch (err) {
     return next(new ANAUTHORUZED_REQUEST_401('Пользователь не зарегистрирован'));
   }
-  //   return res
-  //     .status(ANAUTHORUZED_REQUEST_401)
-  //     .send({ message: 'Пользователь не зарегистрирован' });
-  // }
+
   req.user = payload;
   return next();
 };

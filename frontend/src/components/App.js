@@ -23,12 +23,16 @@ function App() {
   const [message, setMessage] = useState("");
   const [openToolTip, setOpenToolTip] = useState(false);
   const [userEmail, setUserEmail] = useState("");
+//////////////////////////////
 
   function handleUserLeave() {
-    localStorage.removeItem("jwt");
-    setUserEmail("");
+    // api.logout();
+    // setUserEmail("");
+    // setIsLoggedIn(false);
+    localStorage.removeItem('jwt')
+    setIsLoggedIn(false);
   }
-
+////////////////////
   const handleTokenCheck = () => {
     if (localStorage.getItem("jwt")) {
       const jwt = localStorage.getItem("jwt");

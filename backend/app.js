@@ -12,8 +12,6 @@ const ERROR_404_NOTFOUND = 404;
 const { PORT = 4000 } = process.env;
 
 const app = express();
-// app.use(cors({ origin: ("http://localhost:3000", "https://davatim.nomoreparties.co"), credentials: true, maxAge:18600 }));
-app.use(cors({ origin: ('https://davatim.nomoreparties.co'), credentials: true, maxAge:18600 }));
 
 mongoose.connect('mongodb://127.0.0.1:27017/mestodb')
   .then(() => console.log('Подключено к Mongo успешно'))
@@ -25,8 +23,9 @@ app.use(express.json());
 app.use(cookies())
 
 app.use(helmet());
-
-// app.use(cors({ origin: ("http://localhost:3000", "https://davatim.nomoreparties.co"), credentials: true, maxAge:18600 }));
+app.use(cors({ origin: "http://localhost:3000",
+credentials: true,
+}));
 app.use(router);
 
 app.use('/', (_req, res) => {

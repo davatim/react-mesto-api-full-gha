@@ -23,10 +23,8 @@ app.use(express.json());
 app.use(cookies())
 
 app.use(helmet());
-app.use(cors({ origin: ("http://localhost:3000", "https://davatim.nomoreparties.co"),
-credentials: true,
-maxAge:18600,
-}));
+
+app.use(cors({ origin: ("http://localhost:3000", "https://davatim.nomoreparties.co"), credentials: true, maxAge:18600 }));
 app.use(router);
 
 app.use('/', (_req, res) => {

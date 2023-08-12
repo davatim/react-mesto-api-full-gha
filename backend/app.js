@@ -9,11 +9,11 @@ const cookies = require('cookie-parser');
 
 const ERROR_404_NOTFOUND = 404;
 
-const { PORT = 4000 } = process.env;
+const { PORT = 3000 } = process.env;
 
 const app = express();
-// app.use(cors({ origin: ("http://localhost:3000", "https://davatim.nomoreparties.co"), credentials: true, maxAge:18600 }));
-app.use(cors({ origin: ('https://davatim.nomoreparties.co'), credentials: true, maxAge:18600 }));
+app.use(cors({ origin: ("http://localhost:3001", "https://davatim.nomoreparties.co"), credentials: true, maxAge:18600 }));
+// app.use(cors({ origin: ('https://davatim.nomoreparties.co'), credentials: true, maxAge:18600 }));
 
 mongoose.connect('mongodb://127.0.0.1:27017/mestodb')
   .then(() => console.log('Подключено к Mongo успешно'))
@@ -38,5 +38,5 @@ app.use(errors());
 app.use(error500);
 
 app.listen(PORT, () => {
-  console.log('Server started on port 4000');
+  console.log('Server started on port 3000');
 });

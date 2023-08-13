@@ -26,7 +26,8 @@ class Api {
     return fetch(`${this._baseUrl}/cards`, {
       method: "GET",
       credentials: 'include',
-      headers: this._headers,
+      "Content-Type": "application/json",
+      // headers: this._headers,
     }).then((res) => this._getResponseData(res));
   }
 
@@ -34,7 +35,6 @@ class Api {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "GET",
       credentials: 'include',
-
       headers: this._headers,
     }).then((res) => this._getResponseData(res));
   }
@@ -52,7 +52,6 @@ class Api {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
       credentials: 'include',
-
       headers: this._headers,
       body: JSON.stringify({
         name: userInfo.name,
@@ -65,7 +64,6 @@ class Api {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: "PATCH",
       credentials: 'include',
-
       headers: this._headers,
       body: JSON.stringify({
         avatar: data.avatar,
@@ -123,7 +121,6 @@ const api = new Api({
   // baseUrl: "http://localhost:3000",
   headers: {
     "content-type": "application/json",
-    Authorization: '',
   },
 });
 

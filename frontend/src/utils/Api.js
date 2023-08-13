@@ -123,6 +123,7 @@ const api = new Api({
   // baseUrl: "http://localhost:3000",
   headers: {
     "content-type": "application/json",
+    Authorization: '',
   },
 });
 

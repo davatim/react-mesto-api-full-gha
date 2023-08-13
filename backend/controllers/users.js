@@ -74,24 +74,22 @@ module.exports.createUser = (req, res, next) => {
     .hash(password, 10)
 
     .then((hash) => User.create({
-        name,
-        about,
-        avatar,
-        email,
-        password: hash,
-      },)
-    )
+      name,
+      about,
+      avatar,
+      email,
+      password: hash,
+    }))
 
     .then((user) =>
+
       res.status(INFO_201_SEC_REC).send({
         _id: user._id,
         name: user.name,
         about: user.about,
         email: user.email,
         avatar: user.avatar,
-      }
-      )
-    )
+      }))
 
     .catch((err) => {
       if (err.code === 11000) {
@@ -114,7 +112,7 @@ module.exports.login = (req, res, next) => {
       if (!user) {
         return next(
           new ANAUTHORUZED_REQUEST_401('Неправильная почта или пароль'),
-        )
+        );
       }
       return bcrypt.compare(password, user.password).then((isEqual) => {
         if (!isEqual) {
@@ -122,7 +120,7 @@ module.exports.login = (req, res, next) => {
             new ANAUTHORUZED_REQUEST_401('Неправильная почта или пароль'),
           );
         }
-        const token = jwt.sign({_id: user._id}, 'super-secret-kei', {expiresIn: '7d'});
+        const token = jwt.sign({ _id: user._id }, 'super-secret-kei', { expiresIn: '7d' });
         res.cookie('jwt', token, {
           maxAge: 604800,
           httpOnly: true,

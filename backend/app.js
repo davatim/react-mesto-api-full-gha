@@ -9,7 +9,7 @@ const error500 = require('./middlewares/error500');
 
 const ERROR_404_NOTFOUND = 404;
 
-const {PORT = 3000} = process.env;
+const { PORT = 3000 } = process.env;
 
 const app = express();
 app.get('/crash-test', () => {
@@ -22,7 +22,7 @@ app.use(
     origin: ['http://localhost:3001', 'https://davatim.nomoreparties.co'],
     credentials: true,
     maxAge: 300,
-  })
+  }),
 );
 
 mongoose

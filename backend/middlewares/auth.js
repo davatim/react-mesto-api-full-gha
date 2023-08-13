@@ -4,8 +4,8 @@ const {
 } = require('../utils/errors/errors');
 
 module.exports.auth = (req, _res, next) => {
-  const token  = req.cookies.jwt;
-  console.log(token)
+  const token = req.cookies.jwt;
+  console.log(token);
   let payload;
 
   try {

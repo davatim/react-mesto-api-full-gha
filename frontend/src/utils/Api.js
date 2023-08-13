@@ -1,21 +1,20 @@
 class Api {
   constructor(config) {
-  // constructor(data) {
+    // constructor(data) {
     this._baseUrl = config.baseUrl;
     this._headers = config.headers;
     // this._baseUrl = data.baseUrl;
     // this._headers = data.headers;
-
   }
-//   _getJson(res) {
-//     if (res.ok) {
-//         return res.json();
-//     }
-//     return Promise.reject(`Ошибка: ${res.status}`)
-// }
+  //   _getJson(res) {
+  //     if (res.ok) {
+  //         return res.json();
+  //     }
+  //     return Promise.reject(`Ошибка: ${res.status}`)
+  // }
 
-// _request(url, options) {
-    // return fetch(`${this._baseUrl}${url}`, options).then(this._getJson)
+  // _request(url, options) {
+  // return fetch(`${this._baseUrl}${url}`, options).then(this._getJson)
   //   return fetch(`${this._baseUrl}${url}`, options)
 
   // }
@@ -29,7 +28,7 @@ class Api {
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, {
       method: "GET",
-      credentials: 'include',
+      credentials: "include",
       headers: this._headers,
     }).then((res) => this._getResponseData(res));
   }
@@ -37,7 +36,7 @@ class Api {
   getUserInfo({ name, about }) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "GET",
-      credentials: 'include',
+      credentials: "include",
       headers: this._headers,
       body: JSON.stringify({
         name: name,
@@ -49,7 +48,7 @@ class Api {
   addNewCard(data) {
     return fetch(`${this._baseUrl}/cards`, {
       method: "POST",
-      credentials: 'include',
+      credentials: "include",
       headers: this._headers,
       body: JSON.stringify(data),
     }).then((res) => this._getResponseData(res));
@@ -58,7 +57,7 @@ class Api {
   setUserInfo(userInfo) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
-      credentials: 'include',
+      credentials: "include",
       headers: this._headers,
       body: JSON.stringify({
         name: userInfo.name,
@@ -70,7 +69,7 @@ class Api {
   updateAvatar(data) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: "PATCH",
-      credentials: 'include',
+      credentials: "include",
       headers: this._headers,
       body: JSON.stringify({
         avatar: data.avatar,
@@ -82,13 +81,13 @@ class Api {
     return isLiked
       ? fetch(`${this._baseUrl}/cards/${id}/likes`, {
           method: "PUT",
-          credentials: 'include',
+          credentials: "include",
 
           headers: this._headers,
         }).then((res) => this._getResponseData(res))
       : fetch(`${this._baseUrl}/cards/${id}/likes`, {
           method: "DELETE",
-          credentials: 'include',
+          credentials: "include",
           headers: this._headers,
         }).then((res) => this._getResponseData(res));
   }
@@ -96,7 +95,7 @@ class Api {
   removeCard(id) {
     return fetch(`${this._baseUrl}/cards/${id}`, {
       method: "DELETE",
-      credentials: 'include',
+      credentials: "include",
 
       headers: this._headers,
     }).then((res) => this._getResponseData(res));
@@ -104,7 +103,7 @@ class Api {
 }
 
 const api = new Api({
-  baseUrl: 'https://api.davatim.nomoreparties.co',
+  baseUrl: "https://api.davatim.nomoreparties.co",
   // baseUrl: "http://localhost:3000",
   headers: {
     "content-type": "application/json",

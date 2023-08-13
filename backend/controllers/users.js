@@ -79,15 +79,18 @@ module.exports.createUser = (req, res, next) => {
         password: hash
       })
     )
+
     .then((user) =>
+
       res.status(INFO_201_SEC_REC).send({
         _id: user._id,
         name: user.name,
         about: user.about,
         email: user.email,
-        avatar: user.avatar,
+        avatar: user.avatar
       })
     )
+
     .catch((err) => {
       if (err.code === 11000) {
         return next(new CODE_CONFLICT('Данный e-mail уже зарегистрирован'));
@@ -108,13 +111,13 @@ module.exports.login = (req, res, next) => {
       // Хэш
       if (!user) {
         return next(
-          new ANAUTHORUZED_REQUEST_401('Неправильная почта или пароль')
+          new ANAUTHORUZED_REQUEST_401('Неправильная почта или пароль'),
         );
       }
       return bcrypt.compare(password, user.password).then((isEqual) => {
         if (!isEqual) {
           return next(
-            new ANAUTHORUZED_REQUEST_401('Неправильная почта или пароль')
+            new ANAUTHORUZED_REQUEST_401('Неправильная почта или пароль'),
           );
         }
         const token = jwt.sign({ _id: user._id }, 'super-secret-kei', {
@@ -132,7 +135,7 @@ module.exports.login = (req, res, next) => {
     .catch(next);
 };
 
-module.exports.logout = (req, res, next) => {
+module.exports.logout = (_req, res, _next) => {
   res.clearCookie('jwt').send({ message: 'Вы вышли' });
 };
 
@@ -151,7 +154,7 @@ module.exports.updateAvatar = (req, res, next) => {
     .catch((err) => {
       if (err instanceof mongoose.Error.ValidationError) {
         return next(
-          new ERROR_IN_REQUATION('Переданны некорректные данные на сервер')
+          new ERROR_IN_REQUATION('Переданны некорректные данные на сервер'),
         );
       }
       return next(err);

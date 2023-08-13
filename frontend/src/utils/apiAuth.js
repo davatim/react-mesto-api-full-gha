@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:3000";
+const BASE_URL = "https://davatim.nomoreparties.co";
 
 export function register(password, email) {
   return fetch(`${BASE_URL}/signup`, {

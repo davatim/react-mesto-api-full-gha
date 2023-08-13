@@ -38,7 +38,7 @@ module.exports.getUserById = (req, res, next) => {
     .catch((err) => {
       if (err.name === 'CastError') {
         return next(
-          new ERROR_IN_REQUATION('Переданы некорректные данные на сервер')
+          new ERROR_IN_REQUATION('Переданы некорректные данные на сервер'),
         );
       }
       return next(err);
@@ -50,13 +50,13 @@ module.exports.updateUserInfo = (req, res, next) => {
   User.findByIdAndUpdate(
     req.user._id,
     { name, about },
-    { new: true, runValidators: true }
+    { new: true, runValidators: true },
   )
     .then((user) => res.status(INFO_200_SEC_SEND).send(user))
     .catch((err) => {
       if (err instanceof mongoose.Error.ValidationError) {
         return next(
-          new ERROR_IN_REQUATION('Переданны некорректные данные на сервер')
+          new ERROR_IN_REQUATION('Переданны некорректные данные на сервер'),
         );
       }
       return next(err);
@@ -65,6 +65,7 @@ module.exports.updateUserInfo = (req, res, next) => {
 
 module.exports.createUser = (req, res, next) => {
   const { name, about, avatar, email, password } = req.body;
+
   bcrypt
     .hash(password, 10)
     .then((hash) =>

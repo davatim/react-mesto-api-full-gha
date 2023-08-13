@@ -25,11 +25,19 @@ export function loginWithToken() {
     headers: {
       "Content-Type": "application/json",
       // Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-      // "Authorization": `Bearer ${token}`,
+      // "Authorization": `Bearer ${localStorage.getItem("jwt")}`,
     },
   }).then(getResponseData);
 }
-
+export function logout() {
+  return fetch(`${BASE_URL}/logout`, {
+    method: "GET",
+    credentials: 'include',
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }).then(getResponseData);
+}
 function getResponseData(res) {
   if (!res.ok) {
     return Promise.reject(`Ошибка: ${res.status}`);

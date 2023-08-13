@@ -15,6 +15,7 @@ import ImagePopup from "./ImagePopup.js";
 import { useState, useEffect } from "react";
 import api from "../utils/Api";
 import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
+import { logout } from "../utils/apiAuth.js";
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -22,33 +23,29 @@ function App() {
   const navigate = useNavigate();
   const [message, setMessage] = useState("");
   const [openToolTip, setOpenToolTip] = useState(false);
-  const [userEmail, setUserEmail] = useState("");
-//////////////////////////////
+  //////////////////////////////
 
   function handleUserLeave() {
-    // api.logout();
-    // setUserEmail("");
-    // setIsLoggedIn(false);
-    localStorage.removeItem('jwt')
-    setIsLoggedIn(false);
+    logout().then(() => {
+      setСurrentUser({});
+      setIsLoggedIn(false);
+    });
   }
-////////////////////
+  ////////////////////
   const handleTokenCheck = () => {
-    if (localStorage.getItem("jwt")) {
-      const jwt = localStorage.getItem("jwt");
-      loginWithToken(jwt)
-        .then((res) => {
-          if (res) {
-            setIsLoggedIn(true);
-            setUserEmail(res.data.email);
-            navigate("/", { replace: true });
-          }
-        })
-        .catch((err) => {
-          //eslint-disable-naxt-line
-          console.log(err);
-        });
-    }
+    loginWithToken()
+      .then((res) => {
+        if (res) {
+          setIsLoggedIn(true);
+          navigate("/", { replace: true });
+        }
+      })
+      .catch((err) => {
+        setIsLoggedIn(false);
+        navigate("/", { replace: true });
+        //eslint-disable-naxt-line
+        console.log(err);
+      });
   };
 
   useEffect(() => {
@@ -84,11 +81,10 @@ function App() {
       event.preventDefault();
       login(password, email)
         .then((res) => {
-          if (res !== false) {
-            setUserEmail(email);
+          if (res) {
             navigate("/", { replace: true });
             setIsLoggedIn(true);
-            localStorage.setItem("jwt", res.token);
+            setСurrentUser(res);
           }
         })
         .catch((err) => {
@@ -99,15 +95,6 @@ function App() {
     };
 
   const [currentUser, setСurrentUser] = useState({});
-
-  useEffect(() => {
-    api
-      .getUserInfo()
-      .then((userInfoApi) => {
-        setСurrentUser(userInfoApi);
-      })
-      .catch((err) => console.log(err));
-  }, []);
 
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
 
@@ -156,7 +143,7 @@ function App() {
 
   function handleCardLike(card) {
     const isLiked = card.likes?.some((i) => i === currentUser._id);
-////////////////
+    ////////////////
     api
       .changeLikeCardStatus(card._id, !isLiked)
       .then((newCard) => {
@@ -166,7 +153,7 @@ function App() {
       })
       .catch((err) => console.log(err));
   }
-/////////////////
+  /////////////////
   function handleCardDelete(card) {
     api
       .removeCard(card._id)
@@ -178,7 +165,7 @@ function App() {
         // const filteredCards =  cards.filter((item) => item._id !== card._id);
         // setCards(filteredCards)
         //???????????????????
-      // })
+        // })
         setCards((state) => state.filter((item) => item._id !== card._id));
       })
 
@@ -205,9 +192,9 @@ function App() {
       .catch((err) => console.log(err));
   }
 
-  function handleAddPlaceSubmit(newCard) {
+  function handleAddPlaceSubmit(Card) {
     api
-      .addNewCard(newCard)
+      .addNewCard(Card)
       .then((newCard) => {
         setCards([newCard, ...cards]);
 
@@ -221,7 +208,7 @@ function App() {
       <div className="page">
         <Header
           status={status}
-          userEmail={userEmail}
+          userEmail={currentUser.email}
           handleUserLeave={handleUserLeave}
         />
         <Routes>

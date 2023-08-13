@@ -1,11 +1,11 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const helmet = require("helmet");
-const { errors } = require("celebrate");
-const cors = require("cors");
-const cookies = require("cookie-parser");
-const router = require("./routes/index");
-const error500 = require("./middlewares/error500");
+const express = require('express');
+const mongoose = require('mongoose');
+const helmet = require('helmet');
+const { errors } = require('celebrate');
+const cors = require('cors');
+const cookies = require('cookie-parser');
+const router = require('./routes/index');
+const error500 = require('./middlewares/error500');
 
 const ERROR_404_NOTFOUND = 404;
 

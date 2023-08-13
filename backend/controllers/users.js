@@ -81,12 +81,12 @@ module.exports.createUser = (req, res, next) => {
     }))
 
     .then((user) => res.status(INFO_201_SEC_REC).send({
-        _id: user._id,
-        name: user.name,
-        about: user.about,
-        email: user.email,
-        avatar: user.avatar,
-      }))
+      _id: user._id,
+      name: user.name,
+      about: user.about,
+      email: user.email,
+      avatar: user.avatar,
+    }))
 
     .catch((err) => {
       if (err.code === 11000) {

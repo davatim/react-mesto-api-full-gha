@@ -35,7 +35,8 @@ class Api {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "GET",
       credentials: 'include',
-      headers: this._headers,
+      headers: { "Content-Type": "application/json" },
+      // headers: this._headers,
     }).then((res) => this._getResponseData(res));
   }
 
@@ -43,7 +44,8 @@ class Api {
     return fetch(`${this._baseUrl}/cards`, {
       method: "POST",
       credentials: 'include',
-      headers: this._headers,
+      // headers: this._headers,
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),
     }).then((res) => this._getResponseData(res));
   }
@@ -52,7 +54,8 @@ class Api {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
       credentials: 'include',
-      headers: this._headers,
+      headers: { "Content-Type": "application/json" },
+      // headers: this._headers,
       body: JSON.stringify({
         name: userInfo.name,
         about: userInfo.about,
@@ -64,7 +67,8 @@ class Api {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: "PATCH",
       credentials: 'include',
-      headers: this._headers,
+      headers: { "Content-Type": "application/json" },
+      // headers: this._headers,
       body: JSON.stringify({
         avatar: data.avatar,
       }),
@@ -95,13 +99,14 @@ class Api {
       ? fetch(`${this._baseUrl}/cards/${id}/likes`, {
           method: "PUT",
           credentials: 'include',
-
-          headers: this._headers,
+          headers: { "Content-Type": "application/json" },
+          // headers: this._headers,
         }).then((res) => this._getResponseData(res))
       : fetch(`${this._baseUrl}/cards/${id}/likes`, {
           method: "DELETE",
           credentials: 'include',
-          headers: this._headers,
+          // headers: this._headers,
+          headers: { "Content-Type": "application/json" },
         }).then((res) => this._getResponseData(res));
   }
 
@@ -109,8 +114,8 @@ class Api {
     return fetch(`${this._baseUrl}/cards/${id}`, {
       method: "DELETE",
       credentials: 'include',
-
-      headers: this._headers,
+      // headers: this._headers,
+      headers: { "Content-Type": "application/json" },
     }).then((res) => this._getResponseData(res));
   }
 }

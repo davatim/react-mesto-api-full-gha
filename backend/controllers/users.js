@@ -73,26 +73,23 @@ module.exports.createUser = (req, res, next) => {
 
     .hash(password, 10)
 
-    .then((hash) =>
-      User.create({
+    .then((hash) => User.create({
         name,
         about,
         avatar,
         email,
         password: hash,
-      })
+      },)
     )
 
     .then((user) =>
-
       res.status(INFO_201_SEC_REC).send({
         _id: user._id,
         name: user.name,
         about: user.about,
         email: user.email,
         avatar: user.avatar,
-      })
-
+      },)
     )
 
     .catch((err) => {

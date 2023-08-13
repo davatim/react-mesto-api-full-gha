@@ -1,7 +1,11 @@
 class Api {
   constructor(config) {
+  // constructor(data) {
     this._baseUrl = config.baseUrl;
     this._headers = config.headers;
+    // this._baseUrl = data.baseUrl;
+    // this._headers = data.headers;
+
   }
 //   _getJson(res) {
 //     if (res.ok) {
@@ -26,17 +30,19 @@ class Api {
     return fetch(`${this._baseUrl}/cards`, {
       method: "GET",
       credentials: 'include',
-      headers: { "Content-Type": "application/json" },
-      // headers: this._headers,
+      headers: this._headers,
     }).then((res) => this._getResponseData(res));
   }
 
-  getUserInfo() {
+  getUserInfo({ name, about }) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "GET",
       credentials: 'include',
-      headers: { "Content-Type": "application/json" },
-      // headers: this._headers,
+      headers: this._headers,
+      body: JSON.stringify({
+        name: name,
+        about: about,
+      }),
     }).then((res) => this._getResponseData(res));
   }
 
@@ -44,8 +50,7 @@ class Api {
     return fetch(`${this._baseUrl}/cards`, {
       method: "POST",
       credentials: 'include',
-      // headers: this._headers,
-      headers: { "Content-Type": "application/json" },
+      headers: this._headers,
       body: JSON.stringify(data),
     }).then((res) => this._getResponseData(res));
   }
@@ -54,8 +59,7 @@ class Api {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
       credentials: 'include',
-      headers: { "Content-Type": "application/json" },
-      // headers: this._headers,
+      headers: this._headers,
       body: JSON.stringify({
         name: userInfo.name,
         about: userInfo.about,
@@ -67,8 +71,7 @@ class Api {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: "PATCH",
       credentials: 'include',
-      headers: { "Content-Type": "application/json" },
-      // headers: this._headers,
+      headers: this._headers,
       body: JSON.stringify({
         avatar: data.avatar,
       }),
@@ -99,14 +102,13 @@ class Api {
       ? fetch(`${this._baseUrl}/cards/${id}/likes`, {
           method: "PUT",
           credentials: 'include',
-          headers: { "Content-Type": "application/json" },
-          // headers: this._headers,
+
+          headers: this._headers,
         }).then((res) => this._getResponseData(res))
       : fetch(`${this._baseUrl}/cards/${id}/likes`, {
           method: "DELETE",
           credentials: 'include',
-          // headers: this._headers,
-          headers: { "Content-Type": "application/json" },
+          headers: this._headers,
         }).then((res) => this._getResponseData(res));
   }
 
@@ -114,8 +116,8 @@ class Api {
     return fetch(`${this._baseUrl}/cards/${id}`, {
       method: "DELETE",
       credentials: 'include',
-      // headers: this._headers,
-      headers: { "Content-Type": "application/json" },
+
+      headers: this._headers,
     }).then((res) => this._getResponseData(res));
   }
 }

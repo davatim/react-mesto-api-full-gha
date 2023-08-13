@@ -1,14 +1,14 @@
-const mongoose = require("mongoose");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const User = require("../models/user");
+const mongoose = require('mongoose');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const User = require('../models/user');
 
 const {
   ERROR_IN_REQUATION,
   ANAUTHORUZED_REQUEST_401,
   ERROR_404_NOTFOUND,
   CODE_CONFLICT,
-} = require("../utils/errors/errors");
+} = require('../utils/errors/errors');
 
 const INFO_200_SEC_SEND = 200;
 const INFO_201_SEC_REC = 201;

@@ -119,10 +119,12 @@ class Api {
 }
 
 const api = new Api({
-  baseUrl: "https://api.davatim.nomoreparties.co",
-  // headers: {
-  //   "content-type": "application/json",
-  // },
+  address: "https://api.davatim.nomoreparties.co",
+  // baseUrl: "https://api.davatim.nomoreparties.co",
+  // baseUrl: "http://localhost:3000",
+  headers: {
+    "content-type": "application/json",
+  },
 });
 
 export default api;

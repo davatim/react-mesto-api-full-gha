@@ -17,7 +17,7 @@ app.get('/crash-test', () => {
       throw new Error('Сервер сейчас упадёт');
     }, 0);
   });
-app.use(cors({ origin: ["http://localhost:3001", "https://davatim.nomoreparties.co"], credentials: true, maxAge:300 }));
+app.use(cors({ origin: ['http://localhost:3001', 'https://davatim.nomoreparties.co'], credentials: true, maxAge:300 }));
 // app.use(cors({ origin: ('https://davatim.nomoreparties.co'), credentials: true, maxAge:18600 }));
 
 

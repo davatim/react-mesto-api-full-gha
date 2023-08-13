@@ -87,8 +87,9 @@ module.exports.createUser = (req, res, next) => {
         name: user.name,
         about: user.about,
         email: user.email,
-        avatar: user.avatar
+        avatar: user.avatar,
       })
+
     )
 
     .catch((err) => {
@@ -135,7 +136,7 @@ module.exports.login = (req, res, next) => {
     .catch(next);
 };
 
-module.exports.logout = (_req, res, _next) => {
+module.exports.logout = (_req, res) => {
   res.clearCookie('jwt').send({ message: 'Вы вышли' });
 };
 

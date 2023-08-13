@@ -9,8 +9,8 @@
 
 ## Ссылки на проект
 
-IP-адрес 84.252.138.37
-Публичный IPv4 84.252.138.37
+IP-адрес <84.252.138.37>
+
 Frontend https://davatim.nomoreparties.co
 
 Backend https://api.davatim.nomoreparties.co

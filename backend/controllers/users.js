@@ -24,7 +24,7 @@ module.exports.getUserById = (req, res, next) => {
     .then((user) => {
       if (!user) {
         return next(
-          new ERROR_404_NOTFOUND("Пользователь не найден на сервере")
+          new ERROR_404_NOTFOUND('Пользователь не найден на сервере')
         );
       }
       return res.status(INFO_200_SEC_SEND).send({
@@ -36,9 +36,9 @@ module.exports.getUserById = (req, res, next) => {
       });
     })
     .catch((err) => {
-      if (err.name === "CastError") {
+      if (err.name === 'CastError') {
         return next(
-          new ERROR_IN_REQUATION("Переданы некорректные данные на сервер")
+          new ERROR_IN_REQUATION('Переданы некорректные данные на сервер')
         );
       }
       return next(err);
@@ -56,7 +56,7 @@ module.exports.updateUserInfo = (req, res, next) => {
     .catch((err) => {
       if (err instanceof mongoose.Error.ValidationError) {
         return next(
-          new ERROR_IN_REQUATION("Переданны некорректные данные на сервер")
+          new ERROR_IN_REQUATION('Переданны некорректные данные на сервер')
         );
       }
       return next(err);
@@ -87,10 +87,10 @@ module.exports.createUser = (req, res, next) => {
     )
     .catch((err) => {
       if (err.code === 11000) {
-        return next(new CODE_CONFLICT("Данный e-mail уже зарегистрирован"));
+        return next(new CODE_CONFLICT('Данный e-mail уже зарегистрирован'));
       }
       if (err instanceof mongoose.Error.ValidationError) {
-        next(new ERROR_IN_REQUATION("Переданны неверные данные"));
+        next(new ERROR_IN_REQUATION('Переданны неверные данные'));
       }
       return next(err);
     });
@@ -100,24 +100,24 @@ module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
 
   User.findOne({ email })
-    .select("+password")
+    .select('+password')
     .then((user) => {
       // Хэш
       if (!user) {
         return next(
-          new ANAUTHORUZED_REQUEST_401("Неправильная почта или пароль")
+          new ANAUTHORUZED_REQUEST_401('Неправильная почта или пароль')
         );
       }
       return bcrypt.compare(password, user.password).then((isEqual) => {
         if (!isEqual) {
           return next(
-            new ANAUTHORUZED_REQUEST_401("Неправильная почта или пароль")
+            new ANAUTHORUZED_REQUEST_401('Неправильная почта или пароль')
           );
         }
-        const token = jwt.sign({ _id: user._id }, "super-secret-kei", {
-          expiresIn: "7d",
+        const token = jwt.sign({ _id: user._id }, 'super-secret-kei', {
+          expiresIn: '7d',
         });
-        res.cookie("jwt", token, {
+        res.cookie('jwt', token, {
           maxAge: 604800,
           httpOnly: true,
           sameSite: true,
@@ -130,7 +130,7 @@ module.exports.login = (req, res, next) => {
 };
 
 module.exports.logout = (req, res, next) => {
-  res.clearCookie("jwt").send({ message: "Вы вышли" });
+  res.clearCookie('jwt').send({ message: 'Вы вышли' });
 };
 
 module.exports.getCurrentUser = (req, res, next) => {
@@ -148,7 +148,7 @@ module.exports.updateAvatar = (req, res, next) => {
     .catch((err) => {
       if (err instanceof mongoose.Error.ValidationError) {
         return next(
-          new ERROR_IN_REQUATION("Переданны некорректные данные на сервер")
+          new ERROR_IN_REQUATION('Переданны некорректные данные на сервер')
         );
       }
       return next(err);

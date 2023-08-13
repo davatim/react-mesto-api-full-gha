@@ -25,9 +25,6 @@ app.use(express.json());
 app.use(cookies())
 
 app.use(helmet());
-// app.use(cors({ origin: "http://localhost:3000",
-// credentials: true,
-// }));
 app.use(router);
 
 app.use('/', (_req, res) => {

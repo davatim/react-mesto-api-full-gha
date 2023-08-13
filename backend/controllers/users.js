@@ -1,23 +1,17 @@
-const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const User = require('../models/user');
+const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const User = require("../models/user");
 
 const {
   ERROR_IN_REQUATION,
   ANAUTHORUZED_REQUEST_401,
   ERROR_404_NOTFOUND,
   CODE_CONFLICT,
-} = require('../utils/errors/errors');
+} = require("../utils/errors/errors");
 
 const INFO_200_SEC_SEND = 200;
 const INFO_201_SEC_REC = 201;
-// const ERROR_IN_REQUATION = 400;
-// const ANAUTHORUZED_REQUEST_401 = 401;
-// // const ERROR_403_PERMISSION = 403;
-// const ERROR_404_NOTFOUND = 404;
-// const CODE_CONFLICT = 409;
-// // const ERROR_505_DEFALT = 500;
 
 module.exports.getUser = (_req, res, next) => {
   User.find({})
@@ -29,7 +23,9 @@ module.exports.getUserById = (req, res, next) => {
   User.findById(userId)
     .then((user) => {
       if (!user) {
-        return next(new ERROR_404_NOTFOUND('Пользователь не найден на сервере'));
+        return next(
+          new ERROR_404_NOTFOUND("Пользователь не найден на сервере")
+        );
       }
       return res.status(INFO_200_SEC_SEND).send({
         _id: user._id,
@@ -40,8 +36,10 @@ module.exports.getUserById = (req, res, next) => {
       });
     })
     .catch((err) => {
-      if (err.name === 'CastError') {
-        return next(new ERROR_IN_REQUATION('Переданы некорректные данные на сервер'));
+      if (err.name === "CastError") {
+        return next(
+          new ERROR_IN_REQUATION("Переданы некорректные данные на сервер")
+        );
       }
       return next(err);
     });
@@ -52,42 +50,47 @@ module.exports.updateUserInfo = (req, res, next) => {
   User.findByIdAndUpdate(
     req.user._id,
     { name, about },
-    { new: true, runValidators: true },
+    { new: true, runValidators: true }
   )
     .then((user) => res.status(INFO_200_SEC_SEND).send(user))
     .catch((err) => {
       if (err instanceof mongoose.Error.ValidationError) {
-        return next(new ERROR_IN_REQUATION('Переданны некорректные данные на сервер'));
+        return next(
+          new ERROR_IN_REQUATION("Переданны некорректные данные на сервер")
+        );
       }
       return next(err);
     });
 };
 
 module.exports.createUser = (req, res, next) => {
-  const {
-    name, about, avatar, email, password,
-  } = req.body;
+  const { name, about, avatar, email, password } = req.body;
   bcrypt
     .hash(password, 10)
-    .then((hash) => User.create({
-      name,
-      about,
-      avatar,
-      email,
-      password: hash,
-    }))
-    .then((user) => res.status(INFO_201_SEC_REC).send({
-      _id: user._id,
-      name: user.name,
-      about: user.about,
-      email: user.email,
-      avatar: user.avatar,
-    }))
+    .then((hash) =>
+      User.create({
+        name,
+        about,
+        avatar,
+        email,
+        password: hash,
+      })
+    )
+    .then((user) =>
+      res.status(INFO_201_SEC_REC).send({
+        _id: user._id,
+        name: user.name,
+        about: user.about,
+        email: user.email,
+        avatar: user.avatar,
+      })
+    )
     .catch((err) => {
       if (err.code === 11000) {
-        return next(new CODE_CONFLICT('Данный e-mail уже зарегистрирован'));
-      } if (err instanceof mongoose.Error.ValidationError) {
-        next(new ERROR_IN_REQUATION('Переданны неверные данные'));
+        return next(new CODE_CONFLICT("Данный e-mail уже зарегистрирован"));
+      }
+      if (err instanceof mongoose.Error.ValidationError) {
+        next(new ERROR_IN_REQUATION("Переданны неверные данные"));
       }
       return next(err);
     });
@@ -96,34 +99,38 @@ module.exports.createUser = (req, res, next) => {
 module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
 
-  User
-    .findOne({ email })
-    .select('+password')
+  User.findOne({ email })
+    .select("+password")
     .then((user) => {
       // Хэш
       if (!user) {
-        return next(new ANAUTHORUZED_REQUEST_401('Неправильная почта или пароль'));
+        return next(
+          new ANAUTHORUZED_REQUEST_401("Неправильная почта или пароль")
+        );
       }
-      return bcrypt.compare(password, user.password)
-        .then((isEqual) => {
-          if (!isEqual) {
-            return next(new ANAUTHORUZED_REQUEST_401('Неправильная почта или пароль'));
-          }
-          const token = jwt.sign({ _id: user._id }, 'super-secret-kei', { expiresIn: '7d' });
-          res.cookie('jwt', token, {
-            maxAge: 604800,
-            httpOnly: true,
-            sameSite: true,
-          })
-          // return res.status(INFO_200_SEC_SEND).send({ token });
-          return res.status(INFO_200_SEC_SEND).send(user);
+      return bcrypt.compare(password, user.password).then((isEqual) => {
+        if (!isEqual) {
+          return next(
+            new ANAUTHORUZED_REQUEST_401("Неправильная почта или пароль")
+          );
+        }
+        const token = jwt.sign({ _id: user._id }, "super-secret-kei", {
+          expiresIn: "7d",
         });
+        res.cookie("jwt", token, {
+          maxAge: 604800,
+          httpOnly: true,
+          sameSite: true,
+        });
+        // return res.status(INFO_200_SEC_SEND).send({ token });
+        return res.status(INFO_200_SEC_SEND).send(user);
+      });
     })
     .catch(next);
 };
 
 module.exports.logout = (req, res, next) => {
-  res.clearCookie('jwt').send({message: 'Вы вышли'})
+  res.clearCookie("jwt").send({ message: "Вы вышли" });
 };
 
 module.exports.getCurrentUser = (req, res, next) => {
@@ -136,15 +143,13 @@ module.exports.getCurrentUser = (req, res, next) => {
 
 module.exports.updateAvatar = (req, res, next) => {
   const { avatar } = req.body;
-  User.findByIdAndUpdate(
-    req.user._id,
-    { avatar },
-    { new: true },
-  )
+  User.findByIdAndUpdate(req.user._id, { avatar }, { new: true })
     .then((user) => res.status(INFO_200_SEC_SEND).send(user))
     .catch((err) => {
       if (err instanceof mongoose.Error.ValidationError) {
-        return next(new ERROR_IN_REQUATION('Переданны некорректные данные на сервер'));
+        return next(
+          new ERROR_IN_REQUATION("Переданны некорректные данные на сервер")
+        );
       }
       return next(err);
     });

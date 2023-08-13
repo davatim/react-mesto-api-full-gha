@@ -120,9 +120,9 @@ class Api {
 
 const api = new Api({
   baseUrl: "https://api.davatim.nomoreparties.co",
-  headers: {
-    "content-type": "application/json",
-  },
+  // headers: {
+  //   "content-type": "application/json",
+  // },
 });
 
 export default api;

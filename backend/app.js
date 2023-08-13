@@ -24,7 +24,6 @@ app.use(
     maxAge: 300,
   })
 );
-// app.use(cors({ origin: ('https://davatim.nomoreparties.co'), credentials: true, maxAge:18600 }));
 
 mongoose
   .connect('mongodb://127.0.0.1:27017/mestodb')

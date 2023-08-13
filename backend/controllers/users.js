@@ -64,7 +64,6 @@ module.exports.updateUserInfo = (req, res, next) => {
 };
 
 module.exports.createUser = (req, res, next) => {
-
   const {
     name, about, avatar, email, password,
   } = req.body;
@@ -81,8 +80,7 @@ module.exports.createUser = (req, res, next) => {
       password: hash,
     }))
 
-    .then((user) =>
-      res.status(INFO_201_SEC_REC).send({
+    .then((user) => res.status(INFO_201_SEC_REC).send({
         _id: user._id,
         name: user.name,
         about: user.about,

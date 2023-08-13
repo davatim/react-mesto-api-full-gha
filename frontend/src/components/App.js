@@ -18,6 +18,8 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 import { logout } from "../utils/apiAuth.js";
 
 function App() {
+  // const [currentUser, setCurrentUser] = useState({});
+  // const [currentUser, setСurrentUser] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [status, setStatus] = useState(false);
   const navigate = useNavigate();
@@ -38,6 +40,7 @@ function App() {
         if (res) {
           setIsLoggedIn(true);
           navigate("/", { replace: true });
+          setСurrentUser(res);
         }
       })
       .catch((err) => {

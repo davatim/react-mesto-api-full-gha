@@ -77,26 +77,7 @@ class Api {
       }),
     }).then((res) => this._getResponseData(res));
   }
-//   putLike(id) {
-//     return this._request(`/cards/${id}/likes`, {
-//         method: 'PUT',
-//         headers: this._headers,
-//     })
-// }
-// deleteLike(id) {
-//   return this._request(`/cards/${id}/likes`, {
-//       method: 'DELETE',
-//       headers: this._headers,
-//   })
-// }
-// changeLikeCardStatus(id, isLiked) {
-//   if(isLiked){
-//       return this.putLike(id)
-//   } else {
-//       return this.deleteLike(id)
-//   }
-// }
-// }
+
   changeLikeCardStatus(id, isLiked) {
     return isLiked
       ? fetch(`${this._baseUrl}/cards/${id}/likes`, {
@@ -123,7 +104,6 @@ class Api {
 }
 
 const api = new Api({
-  // address: "https://api.davatim.nomoreparties.co",
   baseUrl: 'https://api.davatim.nomoreparties.co',
   // baseUrl: "http://localhost:3000",
   headers: {

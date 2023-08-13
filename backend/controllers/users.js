@@ -66,7 +66,7 @@ module.exports.updateUserInfo = (req, res, next) => {
 module.exports.createUser = (req, res, next) => {
 
   const {
-    name, about, avatar, email, password
+    name, about, avatar, email, password,
   } = req.body;
 
   bcrypt
@@ -82,7 +82,6 @@ module.exports.createUser = (req, res, next) => {
     }))
 
     .then((user) =>
-
       res.status(INFO_201_SEC_REC).send({
         _id: user._id,
         name: user.name,

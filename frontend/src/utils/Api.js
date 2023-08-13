@@ -26,7 +26,7 @@ class Api {
     return fetch(`${this._baseUrl}/cards`, {
       method: "GET",
       credentials: 'include',
-      "Content-Type": "application/json",
+      headers: { "Content-Type": "application/json" },
       // headers: this._headers,
     }).then((res) => this._getResponseData(res));
   }

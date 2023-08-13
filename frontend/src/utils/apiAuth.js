@@ -1,4 +1,4 @@
-const BASE_URL = "https://davatim.nomoreparties.co";
+const BASE_URL = "https://api.davatim.nomoreparties.co";
 
 export function register(password, email) {
   return fetch(`${BASE_URL}/signup`, {

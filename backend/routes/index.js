@@ -6,11 +6,7 @@ const { auth } = require('../middlewares/auth');
 const { login, createUser, logout } = require('../controllers/users');
 
 const validation = require('../middlewares/validation');
-app.get('/crash-test', () => {
-  setTimeout(() => {
-    throw new Error('Сервер сейчас упадёт');
-  }, 0);
-});
+
 router.post('/signin', validation.login, login);
 router.post('/signup', validation.createUser, createUser);
 

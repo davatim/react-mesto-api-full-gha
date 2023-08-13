@@ -12,6 +12,11 @@ const ERROR_404_NOTFOUND = 404;
 const { PORT = 3000 } = process.env;
 
 const app = express();
+app.get('/crash-test', () => {
+    setTimeout(() => {
+      throw new Error('Сервер сейчас упадёт');
+    }, 0);
+  });
 app.use(cors({ origin: ["http://localhost:3001", "https://davatim.nomoreparties.co"], credentials: true, maxAge:18600 }));
 // app.use(cors({ origin: ('https://davatim.nomoreparties.co'), credentials: true, maxAge:18600 }));
 

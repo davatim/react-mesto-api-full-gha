@@ -7,6 +7,7 @@ const cookies = require('cookie-parser');
 const router = require('./routes/index');
 const error500 = require('./middlewares/error500');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
+
 const ERROR_404_NOTFOUND = 404;
 
 const { PORT = 3000 } = process.env;
@@ -49,7 +50,6 @@ app.use('/', (_req, res) => {
 
 app.use(errorLogger); // подключаем логгер ошибок
 
-
 app.use(errors());
 
 app.use(error500);
@@ -57,4 +57,3 @@ app.use(error500);
 app.listen(PORT, () => {
   console.log('Server started on port 3000');
 });
-

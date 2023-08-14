@@ -123,6 +123,7 @@ module.exports.login = (req, res, next) => {
           httpOnly: true,
           sameSite: true,
         });
+        // return res.status(INFO_200_SEC_SEND).send({ token });
         return res.status(INFO_200_SEC_SEND).send(user);
       });
     })

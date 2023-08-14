@@ -5,7 +5,7 @@ const {
 
 module.exports.auth = (req, _res, next) => {
   const token = req.cookies.jwt;
-  console.log(token);
+  // console.log(token);
   let payload;
 
   try {

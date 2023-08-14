@@ -1,0 +1,12 @@
+.list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(282px, 3fr));
+  row-gap: 20px;
+  column-gap: 17px;
+}
+@media (max-width: 650px) {
+  .list {
+    max-width: 282px;
+    margin: 0 auto;
+  }
+}

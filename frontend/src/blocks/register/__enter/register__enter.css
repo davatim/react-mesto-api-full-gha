@@ -1,0 +1,8 @@
+.register__enter {
+  text-decoration: none;
+  color: #ffffff;
+}
+
+.register__enter:hover {
+  opacity: 0.6;
+}

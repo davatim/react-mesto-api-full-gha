@@ -1,9 +1,23 @@
 class Api {
   constructor(config) {
+    // constructor(data) {
     this._baseUrl = config.baseUrl;
     this._headers = config.headers;
+    // this._baseUrl = data.baseUrl;
+    // this._headers = data.headers;
   }
-  
+  //   _getJson(res) {
+  //     if (res.ok) {
+  //         return res.json();
+  //     }
+  //     return Promise.reject(`Ошибка: ${res.status}`)
+  // }
+
+  // _request(url, options) {
+  // return fetch(`${this._baseUrl}${url}`, options).then(this._getJson)
+  //   return fetch(`${this._baseUrl}${url}`, options)
+
+  // }
   _getResponseData(res) {
     if (!res.ok) {
       return Promise.reject(`Ошибка: ${res.status}`);

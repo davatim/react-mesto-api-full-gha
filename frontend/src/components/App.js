@@ -18,11 +18,14 @@ import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 import { logout } from "../utils/apiAuth.js";
 
 function App() {
+  // const [currentUser, setCurrentUser] = useState({});
+  // const [currentUser, setСurrentUser] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [status, setStatus] = useState(false);
   const navigate = useNavigate();
   const [message, setMessage] = useState("");
   const [openToolTip, setOpenToolTip] = useState(false);
+  //////////////////////////////
 
   function handleUserLeave() {
     logout().then(() => {
@@ -30,7 +33,7 @@ function App() {
       setIsLoggedIn(false);
     });
   }
-
+  ////////////////////
   const handleTokenCheck = () => {
     loginWithToken()
       .then((res) => {
@@ -43,6 +46,7 @@ function App() {
       .catch((err) => {
         setIsLoggedIn(false);
         navigate("/", { replace: true });
+        //eslint-disable-naxt-line
         console.log(err);
       });
   };
@@ -50,6 +54,7 @@ function App() {
   useEffect(() => {
     handleTokenCheck();
   }, []);
+  // });
 
   const handleRegister =
     ({ password, email }) =>
@@ -141,6 +146,7 @@ function App() {
 
   function handleCardLike(card) {
     const isLiked = card.likes?.some((i) => i === currentUser._id);
+    ////////////////
     api
       .changeLikeCardStatus(card._id, !isLiked)
       .then((newCard) => {
@@ -150,11 +156,19 @@ function App() {
       })
       .catch((err) => console.log(err));
   }
+  /////////////////
   function handleCardDelete(card) {
     api
       .removeCard(card._id)
       .then(() => {
         setCards(cards.filter((c) => c._id !== card._id));
+        // function handleCardLike(card) {
+        //   const isLiked = card.likes.some((i) => i._id === currentUser._id);
+        //?????????????????
+        // const filteredCards =  cards.filter((item) => item._id !== card._id);
+        // setCards(filteredCards)
+        //???????????????????
+        // })
         setCards((state) => state.filter((item) => item._id !== card._id));
       })
 

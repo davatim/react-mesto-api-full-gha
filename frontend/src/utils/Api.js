@@ -89,8 +89,8 @@ class Api {
 }
 
 const api = new Api({
-  // baseUrl: "https://api.davatim.nomoreparties.co",
-  baseUrl: "http://localhost:3000",
+  baseUrl: "https://api.davatim.nomoreparties.co",
+  // baseUrl: "http://localhost:3000",
   headers: {
     "content-type": "application/json",
   },

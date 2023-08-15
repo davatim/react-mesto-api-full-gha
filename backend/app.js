@@ -14,11 +14,6 @@ const { PORT = 3000 } = process.env;
 
 const app = express();
 
-// app.get('/crash-test', () => {
-//   setTimeout(() => {
-//     throw new Error('Сервер сейчас упадёт');
-//   }, 0);
-// });
 app.use(
   cors({
     origin: ['http://localhost:3001', 'https://davatim.nomoreparties.co'],
@@ -39,6 +34,11 @@ app.use(cookies());
 
 app.use(helmet());
 app.use(requestLogger); // подключаем логгер запросов
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
 
 app.use(router);
 

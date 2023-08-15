@@ -99,7 +99,7 @@ module.exports.createUser = (req, res, next) => {
     });
 };
 
-module.exports.login = (req, res, err) => {
+module.exports.login = (req, res, next, err) => {
   const { email, password } = req.body;
 
   User.findOne({ email })

@@ -15,7 +15,11 @@ export function login(password, email) {
     credentials: 'include',
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ password: password, email: email }),
-  }).then(getResponseData);
+  }).then(getResponseData).catch((err) => {
+    console.log(err);
+    setIsLoggedIn(false);
+    setOpenToolTip(true);
+  });
 }
 
 export function loginWithToken() {

@@ -42,7 +42,7 @@ function App() {
       .catch((err) => {
         setIsLoggedIn(false);
         navigate("/", { replace: true });
-        console.log(err);
+        console.error(err);
       });
   };
 

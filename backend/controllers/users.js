@@ -105,7 +105,6 @@ module.exports.login = (req, res, next) => {
   User.findOne({ email })
     .select('+password')
     .then((user) => {
-      // Хэш
       if (!user) {
         return next(
           new ANAUTHORUZED_REQUEST_401('Неправильная почта или пароль'),

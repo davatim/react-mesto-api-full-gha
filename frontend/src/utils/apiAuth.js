@@ -1,5 +1,5 @@
-export const BASE_URL = 'https://api.davatim.nomoreparties.co';
-// const BASE_URL = "http://localhost:3000";
+// export const BASE_URL = 'https://api.davatim.nomoreparties.co';
+const BASE_URL = "http://localhost:3000";
 export function register(password, email) {
   return fetch(`${BASE_URL}/signup`, {
     method: "POST",
@@ -16,11 +16,6 @@ export function login(password, email) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ password: password, email: email }),
   }).then(getResponseData)
-    .catch((err) => {
-      console.err(err(new ERROR_IN_REQUATION('Неверный запрос')));
-      setIsLoggedIn(false);
-      setOpenToolTip(true);
-    });
 }
 
 export function loginWithToken() {

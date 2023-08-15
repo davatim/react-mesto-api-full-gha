@@ -91,7 +91,7 @@ function App() {
           }
         })
         .catch((err) => {
-          console.err(err);
+          console.err(log);
           setIsLoggedIn(false);
           setOpenToolTip(true);
         });

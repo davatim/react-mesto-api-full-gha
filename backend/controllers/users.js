@@ -99,7 +99,7 @@ module.exports.createUser = (req, res, next) => {
     });
 };
 
-module.exports.login = (req, res, next, err) => {
+module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
 
   User.findOne({ email })
@@ -126,7 +126,7 @@ module.exports.login = (req, res, next, err) => {
         return res.status(INFO_200_SEC_SEND).send(user);
       });
     })
-    .catch(err);
+    .catch(next);
 };
 
 module.exports.logout = (_req, res) => {

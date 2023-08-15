@@ -69,7 +69,7 @@ function App() {
           }
         })
         .catch((err) => {
-          console.log(err);
+          console.err(err);
           setStatus(false);
           setMessage("Неудачно");
         })

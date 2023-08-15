@@ -16,11 +16,11 @@ export function login(password, email) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ password: password, email: email }),
   }).then(getResponseData)
-    // .catch((err) => {
-    //   console.err(err(new ERROR_IN_REQUATION('Неверный запрос')));
-    //   setIsLoggedIn(false);
-    //   setOpenToolTip(true);
-    // });
+    .catch((err) => {
+      console.err(err(new ERROR_IN_REQUATION('Неверный запрос')));
+      setIsLoggedIn(false);
+      setOpenToolTip(true);
+    });
 }
 
 export function loginWithToken() {

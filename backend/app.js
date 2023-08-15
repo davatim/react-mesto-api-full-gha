@@ -10,7 +10,7 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const ERROR_404_NOTFOUND = 404;
 
-const { PORT = 3000 } = process.env;
+const { PORT = 3001 } = process.env;
 
 const app = express();
 
@@ -55,5 +55,5 @@ app.use(errors());
 app.use(error500);
 
 app.listen(PORT, () => {
-  console.log('Server started on port 3000');
+  console.log('Server started on port 3001');
 });
